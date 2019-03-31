@@ -65,7 +65,7 @@ if (defined('DOMAINS')) {
   $domains = unserialize(DOMAINS);
   $subdomains = $domains[$domain];
 } else {
-  $subdomains = SUBDOMAIN;
+  $subdomains[] = SUBDOMAIN;
 }
 
 /*
@@ -92,7 +92,7 @@ $result = requestCurl($doc_get->saveXML());
 $doc_result = new DOMDocument();
 $doc_result->loadXML($result);
 $doc_result->formatOutput = true;
-trigger_error($doc_result->saveXML(), E_USER_NOTICE);
+//trigger_error($doc_result->saveXML(), E_USER_NOTICE);
 
 /* Abort if we cannot get the current zone records */
 $xpath = new DOMXPath($doc_result);
@@ -165,7 +165,7 @@ $result = requestCurl($xml_put);
 $doc_result = new DOMDocument();
 $doc_result->loadXML($result);
 $doc_result->formatOutput = true;
-trigger_error($doc_result->saveXML(), E_USER_NOTICE);
+//trigger_error($doc_result->saveXML(), E_USER_NOTICE);
 
 /* Abort if setting the new zone records failed */
 $xpath = new DOMXPath($doc_result);
@@ -175,10 +175,11 @@ if ($entries->length > 0) {
   $status = $entries->item(0)->nodeValue;
   if ($status != "success") {
     trigger_error("cannot set new zone records", E_USER_ERROR);
-    respond("failed", "cannot set new zone records");
+    // respond("failed", "cannot set new zone records");
   }
 }
 
-respond("success");
+trigger_error("Update successful", E_USER_NOTICE);
+// respond("success");
 
 ?>

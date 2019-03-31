@@ -6,9 +6,10 @@ function requestCurl($data) {
   curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
   curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
   curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
+  curl_setopt($ch, CURLOPT_SSLVERSION, CURL_SSLVERSION_TLSv1_0);
   
   if (!$data = curl_exec($ch)) {
-    trigger_error('Curl execution error.', curl_error($ch), E_USER_ERROR);
+    trigger_error('Curl execution error:' . curl_error($ch), E_USER_ERROR);
     return false;
   }
 
